@@ -1,7 +1,15 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 
-const server = new ApolloServer({});
+import typeDefs from "./typeDefs";
+import dataSources from "./dataSources";
+import resolvers from "./resolvers";
+
+const server = new ApolloServer({
+  typeDefs,
+  dataSources,
+  resolvers,
+});
 
 const app = express();
 server.applyMiddleware({ app });

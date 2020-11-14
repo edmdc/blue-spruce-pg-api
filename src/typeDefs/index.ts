@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-express";
 
-export const typeDefs = gql`
+const typeDefs = gql`
   type Plant {
     id: Int
     commonName: String
@@ -12,3 +12,5 @@ export const typeDefs = gql`
     plantCatalog: [Plant]
   }
 `;
+
+export default typeDefs;
