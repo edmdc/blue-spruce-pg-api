@@ -9,7 +9,6 @@ export const typeDefs = gql`
   }
 
   type Query {
-    userToken: Token
     plantCatalog: [Plant]
   }
 `;
