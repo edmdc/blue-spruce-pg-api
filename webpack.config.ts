@@ -1,8 +1,7 @@
 import path from "path";
 
 import webpack from "webpack";
-
-const nodeExternals = require("webpack-node-externals");
+import nodeExternals from "webpack-node-externals";
 
 const serverConfig: webpack.Configuration = {
   mode: "development",
