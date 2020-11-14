@@ -1,0 +1,9 @@
+{
+  "name": "blue-spruce-plant-guide-api",
+  "version": "1.0.0",
+  "description": "Graphql server for a plant learning tool",
+  "main": "index.ts",
+  "author": "Edwin Montealvo",
+  "license": "MIT",
+  "private": true
+}
