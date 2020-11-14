@@ -1,7 +1,7 @@
 import { RESTDataSource } from "apollo-datasource-rest";
 import { TREFFLE_API_KEY } from "../env";
 
-interface Plant {
+export interface PlantInfo {
   id: number;
   common_name: string;
   scientific_name: string;
@@ -9,24 +9,34 @@ interface Plant {
 }
 
 class TreffleAPI extends RESTDataSource {
+  readonly token: string;
+  readonly nativePlantFilter: string;
+
   constructor() {
     super();
     this.baseURL = "https://trefle.io/api/";
+    this.token = `token=${TREFFLE_API_KEY}`;
+    this.nativePlantFilter = "filter%5Bestablishment%5D=native";
   }
 
-  buildNativePlantQuery(state: string): string {
-    return `v1/distributions/${state}/plants?filter%5Bestablishment%5D=native&token=${TREFFLE_API_KEY}`;
+  buildDistributionUrl(page?: number, state = "COL"): string {
+    const url = `v1/distributions/${state}/plants?${this.nativePlantFilter}&${this.token}`;
+    return page ? `${url}&page=${page}` : url;
   }
 
-  async getPlantList(): Promise<Plant[]> {
-    const { data } = await this.get(this.buildNativePlantQuery("COL"));
+  async getPlantList(page?: number, state?: string): Promise<PlantInfo[]> {
+    try {
+      const { data } = await this.get(this.buildDistributionUrl(page, state));
 
-    return data.map((plant: Plant) => ({
-      id: plant.id,
-      commonName: plant.common_name,
-      scientificName: plant.scientific_name,
-      imageUrl: plant.image_url,
-    }));
+      return data.map((plant: PlantInfo) => ({
+        id: plant.id,
+        commonName: plant.common_name,
+        scientificName: plant.scientific_name,
+        imageUrl: plant.image_url,
+      }));
+    } catch (error) {
+      return error.message;
+    }
   }
 }
 

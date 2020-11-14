@@ -9,7 +9,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    plantCatalog: [Plant]
+    plantCatalog(page: Int, zone: String): [Plant]
   }
 `;
 
