@@ -6,6 +6,12 @@
   "author": "Edwin Montealvo",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "webpack --watch",
+    "serve": "nodemon dist/server.js",
+    "start": "npm-run-all clean --parallel build serve -n"
+  },
   "dependencies": {
     "apollo-datasource-rest": "^0.9.5",
     "apollo-server-express": "^2.19.0",
@@ -31,10 +37,12 @@
     "eslint-plugin-prettier": "^3.1.4",
     "fork-ts-checker-webpack-plugin": "^6.0.1",
     "nodemon": "^2.0.6",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.1.2",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.5",
     "webpack": "^5.4.0",
+    "webpack-cli": "^4.2.0",
     "webpack-node-externals": "^2.5.2"
   }
 }
