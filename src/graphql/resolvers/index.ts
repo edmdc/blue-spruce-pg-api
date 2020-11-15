@@ -1,4 +1,4 @@
-import { plantCatalog } from "./queries";
+import { plantCatalog } from "./plants";
 
 const resolvers = {
   Query: { plantCatalog },
