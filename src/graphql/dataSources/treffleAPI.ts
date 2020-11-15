@@ -1,5 +1,5 @@
 import { RESTDataSource } from "apollo-datasource-rest";
-import { TREFFLE_API_KEY } from "../env";
+import { TREFFLE_API_KEY } from "../../env";
 
 export interface PlantInfo {
   id: number;
