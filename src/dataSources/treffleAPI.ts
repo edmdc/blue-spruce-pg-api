@@ -3,9 +3,11 @@ import { TREFFLE_API_KEY } from "../env";
 
 export interface PlantInfo {
   id: number;
-  common_name: string;
+  common_name?: string;
   scientific_name: string;
   image_url: string;
+  family_common_name: string;
+  family: string;
 }
 
 class TreffleAPI extends RESTDataSource {
@@ -33,6 +35,8 @@ class TreffleAPI extends RESTDataSource {
         commonName: plant.common_name,
         scientificName: plant.scientific_name,
         imageUrl: plant.image_url,
+        familyCommonName: plant.family_common_name,
+        familyScientificName: plant.family,
       }));
     } catch (error) {
       return error.message;
