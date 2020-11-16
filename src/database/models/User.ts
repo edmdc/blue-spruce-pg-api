@@ -1,4 +1,5 @@
 import { Schema, Connection } from "mongoose";
+import applyUserMiddleware from "../controller/users";
 import { plantSchema } from "./Plant";
 
 export const userSchema = new Schema({
@@ -14,6 +15,7 @@ export const userSchema = new Schema({
 });
 
 export default (conn: Connection): Connection => {
+  applyUserMiddleware(userSchema);
   conn.model("User", userSchema);
   return conn;
 };
