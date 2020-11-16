@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { Schema, model } from "mongoose";
+import { Schema, Connection } from "mongoose";
 import { plantSchema } from "./Plant";
 
 export const userSchema = new Schema({
@@ -15,4 +15,7 @@ export const userSchema = new Schema({
   password: String,
 });
 
-export default model("User", userSchema);
+export default (conn: Connection): Connection => {
+  conn.model("User", userSchema);
+  return conn;
+};
