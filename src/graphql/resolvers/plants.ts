@@ -10,6 +10,5 @@ export const plantCatalog = async (
   { page, zone }: ArgTypes,
   { dataSources, dbClient }: any
 ): Promise<PlantInfo[]> => {
-  console.log(dbClient);
   return dataSources.treffleAPI.getPlantList(page, zone);
 };

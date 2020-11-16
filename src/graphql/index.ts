@@ -7,6 +7,7 @@ import typeDefs from "./schema";
 import dataSources from "./dataSources";
 import resolvers from "./resolvers";
 import { Connection } from "mongoose";
+import User from "./models/user";
 
 let dbClient: Connection;
 
@@ -19,18 +20,23 @@ const App = (): {
     typeDefs,
     dataSources,
     resolvers,
-    context: async () => {
-      if (!dbClient) {
-        try {
-          dbClient = await mongodb();
-        } catch (err) {
-          console.error("Connection failed:", err);
-        } finally {
-          dbClient.close();
+    context: () => ({
+      db: async () => {
+        if (!dbClient) {
+          try {
+            dbClient = await mongodb();
+          } catch (err) {
+            console.error("Connection failed:", err);
+          } finally {
+            dbClient.close();
+          }
+          return { dbClient };
         }
-      }
-      return { dbClient };
-    },
+      },
+      models: () => ({
+        User,
+      }),
+    }),
   });
 
   const server = express();

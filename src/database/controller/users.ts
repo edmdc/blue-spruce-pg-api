@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
-const applyUserMiddleware = (md: mongoose.Document): void => {
-  md.on("save", (data: any) =>
+const applyUserMiddleware = (schema: Schema): void => {
+  schema.on("save", (data: any) =>
     console.log("User Created with the following data", data)
   );
 };
