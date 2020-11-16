@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, Connection } from "mongoose";
 
 export const plantSchema = new Schema({
   _id: { type: Number, required: true },
@@ -6,4 +6,7 @@ export const plantSchema = new Schema({
   scientificName: String,
 });
 
-export default model("Plant", plantSchema);
+export default (conn: Connection): Connection => {
+  conn.model("Plant", plantSchema);
+  return conn;
+};

@@ -1,5 +1,4 @@
 import { PlantInfo } from "../dataSources/treffleAPI";
-import { PlantModel } from "../../database/models";
 
 type ArgTypes = {
   zone?: string;
@@ -11,6 +10,6 @@ export const plantCatalog = async (
   { page, zone }: ArgTypes,
   { dataSources, dbClient }: any
 ): Promise<PlantInfo[]> => {
-  console.log(PlantModel);
+  console.log(dbClient.models);
   return dataSources.treffleAPI.getPlantList(page, zone);
 };

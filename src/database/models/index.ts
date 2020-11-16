@@ -1,4 +1,4 @@
-import UserModel from "./User";
-import PlantModel from "./Plant";
+import addUserModel from "./User";
+import addPlantModel from "./Plant";
 
-export { UserModel, PlantModel };
+export { addUserModel, addPlantModel };
