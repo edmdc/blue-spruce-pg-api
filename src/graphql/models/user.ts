@@ -1,4 +1,5 @@
 import { Connection } from "mongoose";
+import bcrypt from "bcrypt";
 
 const User = {
   signUp: async (
@@ -7,7 +8,10 @@ const User = {
     password: string,
     { models }: Connection
   ): Promise<void> => {
-    models.User.create({ name, email, password });
+    bcrypt.hash(password, 10, (err, passwordHash) => {
+      if (err) return console.error(err);
+      models.User.create({ name, email, passwordHash });
+    });
   },
 };
 
