@@ -1,18 +1,16 @@
-import { ObjectId } from "mongodb";
 import { Schema, Connection } from "mongoose";
 import { plantSchema } from "./Plant";
 
 export const userSchema = new Schema({
-  _id: ObjectId,
   created: { type: Date, default: Date.now() },
   defaultLocation: String,
   favorites: {
     type: [plantSchema],
     default: undefined,
   },
-  name: String,
-  email: String,
-  password: String,
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  password: { type: String, required: true },
 });
 
 export default (conn: Connection): Connection => {

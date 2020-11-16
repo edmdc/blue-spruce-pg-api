@@ -18,7 +18,7 @@ const typeDefs = gql`
     favorites: [Plant]
     name: String
     email: EmailAddress
-    password: string
+    password: String
   }
 
   type Query {
