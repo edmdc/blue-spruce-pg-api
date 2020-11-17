@@ -23,6 +23,7 @@ const typeDefs = gql`
 
   type Query {
     plantCatalog(page: Int, zone: String): [Plant]
+    randomPlantCatalog: [Plant]
     userLogIn(email: String!, password: String!): User
   }
 
