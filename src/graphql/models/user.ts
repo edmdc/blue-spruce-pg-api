@@ -1,10 +1,10 @@
 import { Connection } from "mongoose";
 import bcrypt from "bcrypt";
-import { PlantInfo } from "../dataSources/treffleAPI";
+import { IPlant } from "../dataSources/trefleAPI";
 
 export interface User {
   _id: string;
-  favorites?: PlantInfo[];
+  favorites?: IPlant[];
   name: string;
   email: string;
   password?: string;

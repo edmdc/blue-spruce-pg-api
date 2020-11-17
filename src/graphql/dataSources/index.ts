@@ -1,9 +1,9 @@
 import { RESTDataSource } from "apollo-datasource-rest";
-import TreffleAPI from "./treffleAPI";
+import TrefleAPI from "./trefleAPI";
 
-const dataSources = (): { treffleAPI: RESTDataSource } => {
+const dataSources = (): { trefleAPI: RESTDataSource } => {
   return {
-    treffleAPI: new TreffleAPI(),
+    trefleAPI: new TrefleAPI(),
   };
 };
 
