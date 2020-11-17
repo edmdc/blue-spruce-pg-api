@@ -19,5 +19,6 @@ export const userLogIn = async (
   { email, password }: ArgTypes,
   { models, db }: any
 ): Promise<User> => {
-  return models.User.signUp(email, password, db);
+  console.log();
+  return models.User.logIn(email, password, db);
 };

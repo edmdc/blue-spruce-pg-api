@@ -1,5 +1,5 @@
 import { plantCatalog } from "./plants";
-import { userSignUp } from "./user";
+import { userSignUp, userLogIn } from "./user";
 import { EmailAddressResolver, URLResolver } from "graphql-scalars";
 
 const resolvers = {
@@ -7,6 +7,7 @@ const resolvers = {
   URL: URLResolver,
   Query: {
     plantCatalog,
+    userLogIn,
   },
   Mutation: {
     userSignUp,
