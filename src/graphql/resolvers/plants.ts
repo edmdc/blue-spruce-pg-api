@@ -1,4 +1,4 @@
-import { PlantInfo } from "../dataSources/treffleAPI";
+import { IPlant } from "../dataSources/trefleAPI";
 
 type ArgTypes = {
   zone?: string;
@@ -9,6 +9,6 @@ export const plantCatalog = async (
   _sources: any,
   { page, zone }: ArgTypes,
   { dataSources, dbClient }: any
-): Promise<PlantInfo[]> => {
+): Promise<IPlant[]> => {
   return dataSources.treffleAPI.getPlantList(page, zone);
 };

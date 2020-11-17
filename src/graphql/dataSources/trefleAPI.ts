@@ -19,7 +19,7 @@ export interface IPlant {
   familyScientificName: string;
 }
 
-class TreffleAPI extends RESTDataSource {
+class TrefleAPI extends RESTDataSource {
   private readonly token: string;
   readonly nativePlantFilter: string;
 
@@ -66,4 +66,4 @@ class TreffleAPI extends RESTDataSource {
   }
 }
 
-export default TreffleAPI;
+export default TrefleAPI;
