@@ -23,6 +23,7 @@ const typeDefs = gql`
 
   type Query {
     plantCatalog(page: Int, zone: String): [Plant]
+    userLogIn(email: String!, password: String!): User
   }
 
   type Mutation {
