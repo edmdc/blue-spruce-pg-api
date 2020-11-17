@@ -14,7 +14,7 @@ const typeDefs = gql`
   }
 
   type User {
-    id: ID!
+    _id: String!
     favorites: [Plant]
     name: String
     email: EmailAddress

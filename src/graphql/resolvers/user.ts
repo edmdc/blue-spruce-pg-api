@@ -9,11 +9,13 @@ export const userSignUp = async (
   { name, email, password }: ArgTypes,
   { models, db }: any
 ): Promise<void> => {
-  console.log(models);
+  let user;
   try {
-    const user = await models.User.signUp(name, email, password, db);
+    user = await models.User.signUp(name, email, password, db);
+    console.log(user);
     return user;
   } catch (err) {
     console.log(err);
   }
+  return user;
 };
