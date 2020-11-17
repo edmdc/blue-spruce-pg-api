@@ -1,12 +1,22 @@
 import { Connection } from "mongoose";
 import bcrypt from "bcrypt";
+import { PlantInfo } from "../dataSources/treffleAPI";
+
+export interface User {
+  _id: string;
+  favorites?: PlantInfo[];
+  name: string;
+  email: string;
+  password?: string;
+}
 
 const encryptPassword = async (pass: string): Promise<string> => {
   let password: string;
-  bcrypt.hash(pass, 10, (err, hashedPassword) => {
-    if (err) throw new Error("Couldn't encrypt password");
-    password = hashedPassword;
-  });
+  try {
+    password = await bcrypt.hash(pass, 10);
+  } catch (err) {
+    throw new Error("Couldn't encrypt password");
+  }
   return password;
 };
 
@@ -16,8 +26,8 @@ const User = {
     email: string,
     password: string,
     { models }: Connection
-  ): Promise<Promise<void>> => {
-    let user;
+  ): Promise<User> => {
+    let user: User;
     try {
       const encryptedPassword = await encryptPassword(password);
       user = await models.User.create({
@@ -25,9 +35,8 @@ const User = {
         email,
         password: encryptedPassword,
       });
-      console.log(user, "in user model");
     } catch (error) {
-      console.log(error, "in User model");
+      console.error(error, "in User model");
     }
     return user;
   },
