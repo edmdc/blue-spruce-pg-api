@@ -10,5 +10,13 @@ export const plantCatalog = async (
   { page, zone }: ArgTypes,
   { dataSources, dbClient }: any
 ): Promise<IPlant[]> => {
-  return dataSources.treffleAPI.getPlantList(page, zone);
+  return dataSources.trefleAPI.getPlantList(page, zone);
+};
+
+export const randomPlantCatalog = async (
+  _sources: any,
+  { page, zone }: ArgTypes,
+  { dataSources, dbClient }: any
+): Promise<IPlant[]> => {
+  return dataSources.trefleAPI.getRandomPlantList(page, zone);
 };

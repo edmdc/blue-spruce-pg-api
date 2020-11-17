@@ -55,7 +55,7 @@ class TrefleAPI extends RESTDataSource {
     }
   }
 
-  async getRandomPlantPage(): Promise<IPlant[]> {
+  async getRandomPlantList(): Promise<IPlant[]> {
     const randomNumber = Math.floor(Math.random() * 100);
     try {
       const {data} = await this.get(this.buildDistributionUrl(randomNumber))
