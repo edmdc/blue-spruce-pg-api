@@ -40,6 +40,17 @@ const User = {
     }
     return user;
   },
+  logIn: async (
+    email: string,
+    password: string,
+    { models }: Connection
+  ): Promise<User> => {
+    const user = await models.User.findOne({ email }).exec();
+    if (!user) throw new Error("User email does not exists");
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) throw new Error("Password entry did not match");
+    return user;
+  },
 };
 
 export default User;
