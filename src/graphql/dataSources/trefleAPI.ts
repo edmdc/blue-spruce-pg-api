@@ -37,31 +37,31 @@ class TrefleAPI extends RESTDataSource {
 
   private formatData(plantData: TrefleTypes[]) {
     return plantData.map((plant: TrefleTypes) => ({
-        id: plant.id,
-        commonName: plant.common_name,
-        scientificName: plant.scientific_name,
-        imageUrl: plant.image_url,
-        familyCommonName: plant.family_common_name,
-        familyScientificName: plant.family,
-      }))
+      id: plant.id,
+      commonName: plant.common_name,
+      scientificName: plant.scientific_name,
+      imageUrl: plant.image_url,
+      familyCommonName: plant.family_common_name,
+      familyScientificName: plant.family,
+    }));
   }
 
   async getPlantList(page?: number, state?: string): Promise<IPlant[]> {
     try {
       const { data } = await this.get(this.buildDistributionUrl(page, state));
-      return this.formatData(data)
+      return this.formatData(data);
     } catch (error) {
       return error.message;
     }
   }
 
   async getRandomPlantList(): Promise<IPlant[]> {
-    const randomNumber = Math.floor(Math.random() * 100);
+    const randomNumber = Math.floor(Math.random() * 110);
     try {
-      const {data} = await this.get(this.buildDistributionUrl(randomNumber))
-      return this.formatData(data)
+      const { data } = await this.get(this.buildDistributionUrl(randomNumber));
+      return this.formatData(data);
     } catch (err) {
-      return err.message
+      return err.message;
     }
   }
 }
