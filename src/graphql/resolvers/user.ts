@@ -20,5 +20,5 @@ export const userLogIn = async (
   { models, db, dataSources }: any
 ): Promise<User> => {
   console.log();
-  return models.User.logIn(email, password, db, { trefleAPI });
+  return models.User.logIn(email, password, db, dataSources);
 };

@@ -13,12 +13,18 @@ const typeDefs = gql`
     familyScientificName: String
   }
 
+  type Token {
+    token: String
+    expiration: String
+  }
+
   type User {
     _id: String!
     favorites: [Plant]
     name: String
     email: EmailAddress
     password: String
+    token: Token
   }
 
   type Query {
