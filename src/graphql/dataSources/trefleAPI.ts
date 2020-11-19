@@ -48,15 +48,16 @@ class TrefleAPI extends RESTDataSource {
 
   async getUserToken(): Promise<{ token: string; expiration: string }> {
     try {
+      const prefixRegex = /token\=/;
+      const unprefixedToken = this.token.replace(prefixRegex, "");
       const reqBody = {
-        origin: "http://localhost:4000/graphql",
-        token: this.token,
+        origin: "http://localhost:8080",
+        token: unprefixedToken,
       };
-      const { data } = await this.post("auth/claim", reqBody);
-      console.log(data);
-      return data;
+      const token = await this.post("auth/claim", reqBody);
+      return token;
     } catch (err) {
-      console.error(err.message);
+      console.error(err, "in trefleAPI");
     }
   }
 
