@@ -46,6 +46,20 @@ class TrefleAPI extends RESTDataSource {
     }));
   }
 
+  async getUserToken(): Promise<{ token: string; expiration: string }> {
+    try {
+      const reqBody = {
+        origin: "http://localhost:4000/graphql",
+        token: this.token,
+      };
+      const { data } = await this.post("auth/claim", reqBody);
+      console.log(data);
+      return data;
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
   async getPlantList(page?: number, state?: string): Promise<IPlant[]> {
     try {
       const { data } = await this.get(this.buildDistributionUrl(page, state));

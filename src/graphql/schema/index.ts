@@ -24,10 +24,10 @@ const typeDefs = gql`
   type Query {
     plantCatalog(page: Int, zone: String): [Plant]
     randomPlantCatalog: [Plant]
-    userLogIn(email: String!, password: String!): User
   }
 
   type Mutation {
+    userLogIn(email: EmailAddress!, password: String!): User
     userSignUp(name: String!, email: EmailAddress!, password: String!): User
   }
 `;
