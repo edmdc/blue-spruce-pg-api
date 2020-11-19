@@ -20,6 +20,7 @@ const App = (): {
     context: async () => ({
       db: await connectMongoDB().catch((err) => console.error(err)),
       models: { User },
+      userLoggedIn: false,
     }),
   });
 

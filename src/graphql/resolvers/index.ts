@@ -8,10 +8,10 @@ const resolvers = {
   Query: {
     plantCatalog,
     randomPlantCatalog,
-    userLogIn,
   },
   Mutation: {
     userSignUp,
+    userLogIn,
   },
 };
 
