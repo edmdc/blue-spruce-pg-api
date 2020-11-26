@@ -19,9 +19,12 @@ export interface IPlant {
   familyScientificName: string;
 }
 
-export interface IQuizKey {
-  [answerID: string]: IPlant[];
+interface IAnswerChoice {
+  answerID: number;
+  choices: IPlant[];
 }
+
+export type TQuizKey = IAnswerChoice[];
 
 class TrefleAPI extends RESTDataSource {
   readonly nativePlantFilter: string;
@@ -47,18 +50,22 @@ class TrefleAPI extends RESTDataSource {
       familyScientificName: plant.family,
     }));
   }
+
   private randomAnswerCreator(plantCatalog: IPlant[]) {
-    const answerChoices = {};
+    let choices: IPlant[];
     let i = 0;
     while (i < 4) {
       const newAnswer =
         plantCatalog[Math.floor(Math.random() * plantCatalog.length)];
-      if (!answerChoices[newAnswer.commonName]) {
-        answerChoices[newAnswer.commonName] = newAnswer;
+      if (!choices.includes(newAnswer)) {
+        choices = [...choices, newAnswer];
         i++;
       }
     }
-    return answerChoices;
+
+    const answerID = choices[Math.floor(Math.random() * 4)].id;
+
+    return { answerID, choices };
   }
 
   async getUserToken(): Promise<{ token: string; expiration: string }> {
@@ -93,24 +100,20 @@ class TrefleAPI extends RESTDataSource {
     }
   }
 
-  async createPlantQuiz(): Promise<IQuizKey> {
+  async createPlantQuiz(): Promise<TQuizKey> {
     const plantList = await this.getRandomPlantList();
-    const createQuizKey = () => {
-      const quizKey = {};
-      let i = 0;
-      while (i < 10) {
-        const roundAnswers = this.randomAnswerCreator(plantList);
-        const answerID = roundAnswers[
-          Math.floor(Math.random() * 4)
-        ].id.toString();
-        if (!quizKey[answerID]) {
-          quizKey[answerID] = roundAnswers;
-          i++;
-        }
+    const tracker = {};
+    const quizKey = [];
+    let i = 0;
+    while (i < 10) {
+      const roundAnswers = this.randomAnswerCreator(plantList);
+      if (!tracker[roundAnswers.answerID.toString()]) {
+        quizKey.push(roundAnswers);
+        tracker[roundAnswers.answerID.toString()] = true;
+        i++;
       }
-      return quizKey;
-    };
-    return createQuizKey();
+    }
+    return quizKey;
   }
 }
 
