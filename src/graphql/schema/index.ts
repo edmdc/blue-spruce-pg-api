@@ -27,9 +27,15 @@ const typeDefs = gql`
     token: Token
   }
 
+  type AnswerChoice {
+    answerID: Int
+    choices: [Plant]
+  }
+
   type Query {
     plantCatalog(page: Int, zone: String): [Plant]
     randomPlantCatalog: [Plant]
+    getPlantQuiz: [AnswerChoice]
   }
 
   type Mutation {

@@ -52,7 +52,7 @@ class TrefleAPI extends RESTDataSource {
   }
 
   private randomAnswerCreator(plantCatalog: IPlant[]) {
-    let choices: IPlant[];
+    let choices: IPlant[] = [];
     let i = 0;
     while (i < 4) {
       const newAnswer =
@@ -101,19 +101,23 @@ class TrefleAPI extends RESTDataSource {
   }
 
   async createPlantQuiz(): Promise<TQuizKey> {
-    const plantList = await this.getRandomPlantList();
-    const tracker = {};
-    const quizKey = [];
-    let i = 0;
-    while (i < 10) {
-      const roundAnswers = this.randomAnswerCreator(plantList);
-      if (!tracker[roundAnswers.answerID.toString()]) {
-        quizKey.push(roundAnswers);
-        tracker[roundAnswers.answerID.toString()] = true;
-        i++;
+    try {
+      const plantList = await this.getRandomPlantList();
+      const tracker = {};
+      const quizKey = [];
+      let i = 0;
+      while (i < 10) {
+        const roundAnswers = this.randomAnswerCreator(plantList);
+        if (!tracker[roundAnswers.answerID.toString()]) {
+          quizKey.push(roundAnswers);
+          tracker[roundAnswers.answerID.toString()] = true;
+          i++;
+        }
       }
+      return quizKey;
+    } catch (err) {
+      return err.message;
     }
-    return quizKey;
   }
 }
 
