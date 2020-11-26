@@ -19,19 +19,21 @@ export interface IPlant {
   familyScientificName: string;
 }
 
+export interface IQuizKey {
+  [answerID: string]: IPlant[];
+}
+
 class TrefleAPI extends RESTDataSource {
-  private readonly token: string;
   readonly nativePlantFilter: string;
 
   constructor() {
     super();
     this.baseURL = "https://trefle.io/api/";
-    this.token = `token=${TREFFLE_API_KEY}`;
     this.nativePlantFilter = "filter%5Bestablishment%5D=native";
   }
 
   private buildDistributionUrl(page?: number, state = "COL"): string {
-    const url = `v1/distributions/${state}/plants?${this.nativePlantFilter}&${this.token}`;
+    const url = `v1/distributions/${state}/plants?${this.nativePlantFilter}&token=${TREFFLE_API_KEY}`;
     return page ? `${url}&page=${page}` : url;
   }
 
@@ -45,14 +47,25 @@ class TrefleAPI extends RESTDataSource {
       familyScientificName: plant.family,
     }));
   }
+  private randomAnswerCreator(plantCatalog: IPlant[]) {
+    const answerChoices = {};
+    let i = 0;
+    while (i < 4) {
+      const newAnswer =
+        plantCatalog[Math.floor(Math.random() * plantCatalog.length)];
+      if (!answerChoices[newAnswer.commonName]) {
+        answerChoices[newAnswer.commonName] = newAnswer;
+        i++;
+      }
+    }
+    return answerChoices;
+  }
 
   async getUserToken(): Promise<{ token: string; expiration: string }> {
     try {
-      const prefixRegex = /token\=/;
-      const unprefixedToken = this.token.replace(prefixRegex, "");
       const reqBody = {
         origin: "http://localhost:8080",
-        token: unprefixedToken,
+        token: TREFFLE_API_KEY,
       };
       const token = await this.post("auth/claim", reqBody);
       return token;
@@ -78,6 +91,26 @@ class TrefleAPI extends RESTDataSource {
     } catch (err) {
       return err.message;
     }
+  }
+
+  async createPlantQuiz(): Promise<IQuizKey> {
+    const plantList = await this.getRandomPlantList();
+    const createQuizKey = () => {
+      const quizKey = {};
+      let i = 0;
+      while (i < 10) {
+        const roundAnswers = this.randomAnswerCreator(plantList);
+        const answerID = roundAnswers[
+          Math.floor(Math.random() * 4)
+        ].id.toString();
+        if (!quizKey[answerID]) {
+          quizKey[answerID] = roundAnswers;
+          i++;
+        }
+      }
+      return quizKey;
+    };
+    return createQuizKey();
   }
 }
 
