@@ -9,7 +9,6 @@ import resolvers from "./resolvers";
 import User from "./models/user";
 
 const authMiddleware = (reqHeader: any) => {
-  console.log(reqHeader);
   return reqHeader;
 };
 
