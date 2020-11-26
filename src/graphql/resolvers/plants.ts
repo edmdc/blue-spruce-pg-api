@@ -16,7 +16,7 @@ export const plantCatalog = async (
 export const randomPlantCatalog = async (
   _sources: any,
   _args: ArgTypes,
-  { dataSources }: any
+  context: any
 ): Promise<IPlant[]> => {
-  return dataSources.trefleAPI.getRandomPlantList();
+  return context.dataSources.trefleAPI.getRandomPlantList();
 };

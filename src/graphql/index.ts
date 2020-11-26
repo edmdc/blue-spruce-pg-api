@@ -8,6 +8,11 @@ import dataSources from "./dataSources";
 import resolvers from "./resolvers";
 import User from "./models/user";
 
+const authMiddleware = (reqHeader: any) => {
+  console.log(reqHeader);
+  return reqHeader;
+};
+
 const App = (): {
   apolloServer: ApolloServer;
   server: express.Application;
@@ -17,10 +22,10 @@ const App = (): {
     typeDefs,
     dataSources,
     resolvers,
-    context: async () => ({
+    context: async ({ req }) => ({
       db: await connectMongoDB().catch((err) => console.error(err)),
       models: { User },
-      userLoggedIn: false,
+      userLoggedIn: authMiddleware(req.headers.authorization),
     }),
   });
 
