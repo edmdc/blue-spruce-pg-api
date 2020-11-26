@@ -20,3 +20,12 @@ export const randomPlantCatalog = async (
 ): Promise<IPlant[]> => {
   return dataSources.trefleAPI.getRandomPlantList();
 };
+
+export const getPlantQuiz = async (
+  _sources: any,
+  _args: ArgTypes,
+  { dataSources }: any
+): Promise<IPlant[]> => {
+  return dataSources.trefleAPI.createPlantQuiz();
+};
+
