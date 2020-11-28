@@ -1,7 +1,6 @@
 import { Connection } from "mongoose";
 import bcrypt from "bcrypt";
 import { IPlant } from "../dataSources/trefleAPI";
-import { RESTDataSource } from "apollo-datasource-rest";
 
 export interface User {
   created: Date;
@@ -44,8 +43,8 @@ const User = {
         password: encryptedPassword,
       });
       token = await dataSources.trefleAPI.getUserToken();
-    } catch (error) {
-      console.error(error, "in User model");
+    } catch (err) {
+      throw new Error(err);
     }
     return { ...user._doc, token };
   },
@@ -62,10 +61,9 @@ const User = {
       const match = await bcrypt.compare(password, user.password);
       if (!match) throw new Error("Password entry did not match");
       token = await dataSources.trefleAPI.getUserToken();
-      console.log();
       return { ...user._doc, token };
     } catch (err) {
-      console.error(err);
+      throw new Error(err);
     }
   },
 };

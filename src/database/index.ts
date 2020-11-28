@@ -1,9 +1,9 @@
 import mongoose, { Connection } from "mongoose";
-import { MONGO_DB_NAME, MONGO_DB_URL } from "../env";
+import { MONGO_DB_URL } from "../env";
 import { addUserModel, addPlantModel } from "./models";
 
 const connectMongoDB = async (): Promise<Connection> => {
-  const url = `${MONGO_DB_URL}/${MONGO_DB_NAME}`;
+  const url = MONGO_DB_URL;
   let dbClient: Connection;
   try {
     mongoose.connect(url, {
@@ -16,8 +16,8 @@ const connectMongoDB = async (): Promise<Connection> => {
     addUserModel(dbClient);
     return dbClient;
   } catch (err) {
-    console.error("Connection failed:", err);
     dbClient.close();
+    console.error("Connection failed:", err);
   }
 };
 
