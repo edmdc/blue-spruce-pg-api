@@ -1,4 +1,4 @@
-import { plantCatalog, randomPlantCatalog, getPlantQuiz } from "./plants";
+import { plantCatalog, randomPlantCatalog, plantQuiz } from "./plants";
 import { userSignUp, userLogIn } from "./user";
 import { EmailAddressResolver, URLResolver } from "graphql-scalars";
 
@@ -8,7 +8,7 @@ const resolvers = {
   Query: {
     plantCatalog,
     randomPlantCatalog,
-    getPlantQuiz,
+    plantQuiz,
   },
   Mutation: {
     userSignUp,
