@@ -8,9 +8,9 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "webpack --watch",
-    "serve": "nodemon dist/server.js",
-    "start": "npm-run-all clean --parallel build serve -n"
+    "build:dev": "webpack --watch",
+    "start:dev": "nodemon dist/server.js",
+    "serve": "npm-run-all clean --parallel build:dev start:dev -n"
   },
   "dependencies": {
     "apollo-datasource-rest": "^0.9.5",
@@ -27,6 +27,7 @@
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-typescript": "^7.12.1",
+    "@shelf/jest-mongodb": "^1.2.3",
     "@types/bcrypt": "^3.0.0",
     "@types/eslint": "^7.2.4",
     "@types/mongoose": "^5.10.0",
@@ -35,12 +36,16 @@
     "@types/webpack-node-externals": "^2.5.0",
     "@typescript-eslint/eslint-plugin": "^4.7.0",
     "@typescript-eslint/parser": "^4.7.0",
+    "apollo-server-testing": "^2.19.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.1",
     "eslint": "^7.13.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
     "fork-ts-checker-webpack-plugin": "^6.0.1",
+    "graphql-query-test-mock": "^0.12.1",
+    "jest-each": "^26.6.2",
+    "nock": "^13.0.5",
     "nodemon": "^2.0.6",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.1.2",
