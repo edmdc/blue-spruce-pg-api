@@ -35,7 +35,7 @@ const typeDefs = gql`
   type Query {
     plantCatalog(page: Int, zone: String): [Plant]
     randomPlantCatalog: [Plant]
-    getPlantQuiz: [AnswerChoice]
+    plantQuiz: [AnswerChoice]
   }
 
   type Mutation {
