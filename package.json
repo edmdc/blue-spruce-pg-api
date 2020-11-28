@@ -8,10 +8,10 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf dist",
-    "build:dev": "webpack --watch",
+    "build:dev": "webpack --mode development --watch",
     "start:dev": "nodemon dist/server.js",
     "serve": "npm-run-all clean --parallel build:dev start:dev -n",
-    "build": "yarn run clean && webpack",
+    "build": "yarn run clean && webpack --mode production",
     "test": "jest --forceExit",
     "start": "node dist/server.js"
   },

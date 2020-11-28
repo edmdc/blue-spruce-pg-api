@@ -42,7 +42,7 @@ const serverConfig: webpack.Configuration = {
   resolve: {
     extensions: [".ts", ".ts", ".js"],
   },
-  externals: nodeExternals(),
+  externals: [nodeExternals()],
 };
 
 export default serverConfig;
