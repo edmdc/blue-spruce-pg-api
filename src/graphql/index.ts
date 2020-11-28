@@ -7,6 +7,7 @@ import typeDefs from "./schema";
 import dataSources from "./dataSources";
 import resolvers from "./resolvers";
 import User from "./models/user";
+import { PORT } from "../env";
 
 const authMiddleware = (reqHeader: any) => {
   return reqHeader;
@@ -35,7 +36,7 @@ const App = (): {
     server,
     init() {
       apolloServer.applyMiddleware({ app: server });
-      server.listen({ port: 4000 }, () =>
+      server.listen({ port: PORT }, () =>
         console.log(
           "Server running on http://localhost:4000" + apolloServer.graphqlPath
         )
