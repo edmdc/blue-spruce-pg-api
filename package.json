@@ -10,7 +10,10 @@
     "clean": "rm -rf dist",
     "build:dev": "webpack --watch",
     "start:dev": "nodemon dist/server.js",
-    "serve": "npm-run-all clean --parallel build:dev start:dev -n"
+    "serve": "npm-run-all clean --parallel build:dev start:dev -n",
+    "build": "yarn run clean && webpack",
+    "test": "jest --forceExit",
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "apollo-datasource-rest": "^0.9.5",
