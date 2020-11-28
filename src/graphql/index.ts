@@ -37,9 +37,7 @@ const App = (): {
     init() {
       apolloServer.applyMiddleware({ app: server });
       server.listen({ port: PORT }, () =>
-        console.log(
-          "Server running on http://localhost:4000" + apolloServer.graphqlPath
-        )
+        console.log(`Server running on port ${PORT}`)
       );
     },
   };
