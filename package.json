@@ -60,6 +60,6 @@
     "webpack-node-externals": "^2.5.2"
   },
   "engines": {
-    "node": "14.13.x"
+    "node": "15.3.x"
   }
 }
