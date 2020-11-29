@@ -30,14 +30,15 @@ const App = (): {
   });
 
   const server = express();
+  apolloServer.applyMiddleware({ app: server });
+  console.log(apolloServer);
 
   return {
     apolloServer,
     server,
     init() {
-      apolloServer.applyMiddleware({ app: server });
-      server.listen({ port: PORT }, () =>
-        console.log(`Server running on port ${PORT}`)
+      server.listen(process.env.PORT || 4000, () =>
+        console.log(`Server listening on`)
       );
     },
   };
