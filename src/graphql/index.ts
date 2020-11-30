@@ -1,5 +1,6 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
+import cors from "cors";
 
 import connectMongoDB from "../database";
 
@@ -29,6 +30,7 @@ const App = (): {
   });
 
   const server = express();
+  server.use(cors());
   apolloServer.applyMiddleware({ app: server });
 
   return {
