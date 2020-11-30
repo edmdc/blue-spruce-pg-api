@@ -30,7 +30,7 @@ const App = (): {
   });
 
   const server = express();
-  server.use(cors());
+  server.use(cors({ methods: ["GET", "POST"] }));
   apolloServer.applyMiddleware({ app: server });
 
   return {
