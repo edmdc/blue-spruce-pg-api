@@ -1,5 +1,5 @@
 import { RESTDataSource } from "apollo-datasource-rest";
-import { TREFFLE_API_KEY } from "../../env";
+import { TREFLE_API_KEY } from "../../env";
 
 export interface TrefleTypes {
   id: number;
@@ -36,7 +36,7 @@ class TrefleAPI extends RESTDataSource {
   }
 
   private buildDistributionUrl(page?: number, state = "COL"): string {
-    const url = `v1/distributions/${state}/plants?${this.nativePlantFilter}&token=${TREFFLE_API_KEY}`;
+    const url = `v1/distributions/${state}/plants?${this.nativePlantFilter}&token=${TREFLE_API_KEY}`;
     return page ? `${url}&page=${page}` : url;
   }
 
@@ -72,7 +72,7 @@ class TrefleAPI extends RESTDataSource {
     try {
       const reqBody = {
         origin: "http://localhost:8080",
-        token: TREFFLE_API_KEY,
+        token: TREFLE_API_KEY,
       };
       const token = await this.post("auth/claim", reqBody);
       return token;

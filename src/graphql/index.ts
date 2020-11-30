@@ -1,6 +1,5 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-import cors from "cors";
 
 import connectMongoDB from "../database";
 
@@ -8,6 +7,7 @@ import typeDefs from "./schema";
 import dataSources from "./dataSources";
 import resolvers from "./resolvers";
 import User from "./models/user";
+import { PORT } from "../env";
 
 const authMiddleware = (reqHeader: any) => {
   return reqHeader;
@@ -30,15 +30,14 @@ const App = (): {
   });
 
   const server = express();
-  server.use(cors({ methods: ["GET", "POST"] }));
-  apolloServer.applyMiddleware({ app: server });
+  apolloServer.applyMiddleware({ app: server, cors: true });
 
   return {
     apolloServer,
     server,
     init() {
-      server.listen(process.env.PORT || 4000, () =>
-        console.log(`Server listening on http://localhost:4000/graphql`)
+      server.listen(PORT, () =>
+        console.log(`Server listening on http://localhost:${PORT}/graphql`)
       );
     },
   };
