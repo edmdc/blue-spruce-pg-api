@@ -29,8 +29,13 @@ const App = (): {
     }),
   });
 
+  const cors = {
+    origin: "https://studio.apollographql.com",
+    methods: ["POST"],
+  };
+
   const server = express();
-  apolloServer.applyMiddleware({ app: server, cors: true });
+  apolloServer.applyMiddleware({ app: server, cors });
 
   return {
     apolloServer,
