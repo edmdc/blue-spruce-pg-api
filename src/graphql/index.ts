@@ -26,8 +26,10 @@ const App = (): {
       userLoggedIn: authMiddleware(req.headers.authorization),
     }),
     cors: {
-      origin: ["https://studio.apollographql.com"],
+      origin: "*",
       methods: ["GET", "POST", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+      credentials: true,
     },
   });
 
