@@ -1,5 +1,4 @@
-import express from "express";
-import { ApolloServer } from "apollo-server-express";
+import { ApolloServer } from "apollo-server";
 
 import connectMongoDB from "../database";
 
@@ -15,7 +14,6 @@ const authMiddleware = (reqHeader: any) => {
 
 const App = (): {
   apolloServer: ApolloServer;
-  server: express.Application;
   init: () => void;
 } => {
   const apolloServer = new ApolloServer({
@@ -27,23 +25,18 @@ const App = (): {
       models: { User },
       userLoggedIn: authMiddleware(req.headers.authorization),
     }),
+    cors: {
+      origin: ["https://studio.apollographql.com"],
+      methods: ["GET", "POST", "OPTIONS"],
+    },
   });
-
-  const cors = {
-    origin: "https://studio.apollographql.com",
-    methods: ["POST"],
-  };
-
-  const server = express();
-  apolloServer.applyMiddleware({ app: server, cors });
 
   return {
     apolloServer,
-    server,
     init() {
-      server.listen(PORT, () =>
-        console.log(`Server listening on http://localhost:${PORT}/graphql`)
-      );
+      apolloServer
+        .listen({ port: PORT })
+        .then(({ url }) => console.log(`Navigate to ${url} to view graph`));
     },
   };
 };
