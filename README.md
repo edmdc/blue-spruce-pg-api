@@ -18,6 +18,35 @@ can create. With that in mind, I extended this previous front-end project into
 a full-stack application to explore the tools available and best practices around
 creating modern web API.
 
+### Set Up
+
+Clone down repository to local machine and run:
+
+```zsh
+yarn install
+```
+
+A Trefle api key and MongoDb Atlas cluster is required to make this project run.
+
+- Create a <a href='https://trefle.io/' target='_blank'>Trefle</a> account for an
+api key
+- Follow <a href='https://docs.atlas.mongodb.com/getting-started/' target='_blank'>these instructions</a>
+to add a MongoDB Cluster to project
+
+Once acquired, add them to a `.env` using the variable names outlined on `.sample.env`.
+
+Then run the following command to start project in development mode:
+
+```zsh
+yarn serve
+```
+
+Or, if a production build is desired run the following commands:
+
+```zsh
+yarn build && yarn start
+```
+
 ### Concepts & Tools
 
 #### GraphQL
@@ -53,3 +82,69 @@ This project is small, so database choice is inconsequential. I choose to work
 with a MongoDB (NoSQL) over a SQL database because I had no experience with it,
 whereas, during my time at Turing, I worked on a full-stack team creating and
 consuming a PostgresSQL database.
+
+### Schema
+
+```graphql
+directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | OBJECT | INTERFACE
+
+"""
+A field whose value conforms to the standard internet email address format as
+specified in RFC822: https://www.w3.org/Protocols/rfc822/.
+"""
+scalar EmailAddress
+
+"""
+A field whose value conforms to the standard URL format as specified in RFC3986:
+https://www.ietf.org/rfc/rfc3986.txt.
+"""
+scalar URL
+
+type Plant {
+  id: Int!
+  commonName: String
+  scientificName: String
+  imageUrl: URL
+  familyCommonName: String
+  familyScientificName: String
+}
+
+type Token {
+  token: String
+  expiration: String
+}
+
+type User {
+  _id: String!
+  favorites: [Plant]
+  name: String
+  email: EmailAddress
+  password: String
+  token: Token
+}
+
+type AnswerChoice {
+  answerID: Int
+  choices: [Plant]
+}
+
+type Query {
+  plantCatalog(page: Int, zone: String): [Plant]
+  randomPlantCatalog: [Plant]
+  plantQuiz: [AnswerChoice]
+}
+
+type Mutation {
+  userLogIn(email: EmailAddress!, password: String!): User
+  userSignUp(name: String!, email: EmailAddress!, password: String!): User
+}
+
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+```
