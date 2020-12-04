@@ -1,21 +1,12 @@
-import path from "path";
-
-import webpack from "webpack";
 import nodeExternals from "webpack-node-externals";
+import serverlessWebpack from "serverless-webpack";
 
-const serverConfig: webpack.Configuration = {
-  mode: "development",
-  entry: {
-    server: "./src/index.ts",
-  },
-  output: {
-    path: path.join(__dirname, "dist"),
-    filename: "[name].js",
-  },
+module.exports = {
+  devtool: "inline-cheap-module-source-map",
+  entry: serverlessWebpack.lib.entries,
+  mode: serverlessWebpack.lib.webpack.isLocal ? "development" : "production",
   target: "node",
-  node: {
-    __dirname: false,
-  },
+  node: false,
   module: {
     rules: [
       {
@@ -44,5 +35,3 @@ const serverConfig: webpack.Configuration = {
   },
   externals: [nodeExternals()],
 };
-
-export default serverConfig;
