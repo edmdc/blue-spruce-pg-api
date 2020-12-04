@@ -28,4 +28,3 @@ export const plantQuiz = async (
 ): Promise<IPlant[]> => {
   return dataSources.trefleAPI.createPlantQuiz();
 };
-
