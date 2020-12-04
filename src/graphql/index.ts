@@ -1,45 +1,22 @@
-import express from "express";
-import { ApolloServer } from "apollo-server-express";
-
-import connectMongoDB from "../database";
+import { ApolloServer } from "apollo-server-lambda";
 
 import typeDefs from "./schema";
 import dataSources from "./dataSources";
 import resolvers from "./resolvers";
-import User from "./models/user";
 
-const authMiddleware = (reqHeader: any) => {
-  return reqHeader;
-};
-
-const App = (): {
-  apolloServer: ApolloServer;
-  server: express.Application;
-  init: () => void;
-} => {
-  const apolloServer = new ApolloServer({
+const App = (): ApolloServer =>
+  new ApolloServer({
     typeDefs,
     dataSources,
     resolvers,
-    context: async ({ req }) => ({
-      db: await connectMongoDB().catch((err) => console.error(err)),
-      models: { User },
-      userLoggedIn: authMiddleware(req.headers.authorization),
+    context: async ({ event, context }) => ({
+      headers: event.headers,
+      functionName: context.functionName,
+      event,
+      context,
     }),
-  });
-
-  const server = express();
-  apolloServer.applyMiddleware({ app: server });
-
-  return {
-    apolloServer,
-    server,
-    init() {
-      server.listen(process.env.PORT || 4000, () =>
-        console.log(`Server listening on http://localhost:4000/graphql`)
-      );
+    playground: {
+      endpoint: "/dev/graphql",
     },
-  };
-};
-
+  });
 export default App;

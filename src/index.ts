@@ -1,4 +1,8 @@
 import App from "./graphql";
 
-const app = App();
-app.init();
+exports.graphqlHandler = App().createHandler({
+  cors: {
+    origin: true,
+    credentials: true,
+  },
+});
