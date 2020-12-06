@@ -18,5 +18,6 @@ const App = (): ApolloServer =>
     playground: {
       endpoint: "/dev/graphql",
     },
+    introspection: true,
   });
 export default App;
