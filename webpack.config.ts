@@ -2,7 +2,7 @@ import nodeExternals from "webpack-node-externals";
 import serverlessWebpack from "serverless-webpack";
 
 module.exports = {
-  devtool: "inline-cheap-module-source-map",
+  devtool: "source-map",
   entry: serverlessWebpack.lib.entries,
   mode: serverlessWebpack.lib.webpack.isLocal ? "development" : "production",
   target: "node",
@@ -14,18 +14,6 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-          options: {
-            presets: [
-              [
-                "@babel/preset-env",
-                {
-                  useBuiltIns: "usage",
-                  corejs: { version: 3, proposals: "true" },
-                },
-              ],
-              "@babel/preset-typescript",
-            ],
-          },
         },
       },
     ],

@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-lambda";
 
-const typeDefs = gql`
+export default gql`
   scalar EmailAddress
   scalar URL
 
@@ -13,20 +13,6 @@ const typeDefs = gql`
     familyScientificName: String
   }
 
-  type Token {
-    token: String
-    expiration: String
-  }
-
-  type User {
-    _id: String!
-    favorites: [Plant]
-    name: String
-    email: EmailAddress
-    password: String
-    token: Token
-  }
-
   type AnswerChoice {
     answerID: Int
     choices: [Plant]
@@ -37,11 +23,4 @@ const typeDefs = gql`
     randomPlantCatalog: [Plant]
     plantQuiz: [AnswerChoice]
   }
-
-  type Mutation {
-    userLogIn(email: EmailAddress!, password: String!): User
-    userSignUp(name: String!, email: EmailAddress!, password: String!): User
-  }
 `;
-
-export default typeDefs;
