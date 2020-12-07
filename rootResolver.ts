@@ -1,5 +1,8 @@
-import { plantCatalog, randomPlantCatalog, plantQuiz } from "./plants";
-import { userSignUp, userLogIn } from "./user";
+import {
+  plantCatalog,
+  randomPlantCatalog,
+  plantQuiz,
+} from "./trefleAPI/resolvers";
 import { EmailAddressResolver, URLResolver } from "graphql-scalars";
 
 const resolvers = {
@@ -9,10 +12,6 @@ const resolvers = {
     plantCatalog,
     randomPlantCatalog,
     plantQuiz,
-  },
-  Mutation: {
-    userSignUp,
-    userLogIn,
   },
 };
 
