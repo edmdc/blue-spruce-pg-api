@@ -9,7 +9,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "noEmit": true,
-    "target": "ES6"
+    "target": "ES2017"
   },
   "exclude": ["node_modules", "dist"]
 }

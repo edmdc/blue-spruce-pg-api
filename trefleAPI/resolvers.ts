@@ -1,4 +1,11 @@
-import { IPlant } from "../dataSources/trefleAPI";
+interface IPlant {
+  id: number;
+  commonName?: string;
+  scientificName: string;
+  imageUrl: string;
+  familyCommonName: string;
+  familyScientificName: string;
+}
 
 type ArgTypes = {
   zone?: string;

@@ -1,8 +1,8 @@
-import { ApolloServer } from "apollo-server-lambda";
+const { ApolloServer } = require("apollo-server-lambda");
 
-import typeDefs from "./schema";
-import TrefleAPI from "./trefleAPI/model";
-import resolvers from "./rootResolver";
+const typeDefs = require("./schema");
+const TrefleAPI = require("./trefleAPI/model");
+const resolvers = require("./rootResolver");
 
 const server = new ApolloServer({
   typeDefs,
@@ -11,7 +11,10 @@ const server = new ApolloServer({
   }),
   resolvers,
   context: async ({ event, context }) => ({
-    headers: event.headers,
+    headers: () => {
+      console.log(event.headers);
+      return event.headers;
+    },
     functionName: context.functionName,
     event,
     context,
@@ -21,11 +24,9 @@ const server = new ApolloServer({
   },
   introspection: true,
   formatResponse: (response) => {
-    console.log(response);
     return response;
   },
   formatError: (err) => {
-    console.log(err.extensions.exception.stacktrace);
     console.log(err);
     return err;
   },

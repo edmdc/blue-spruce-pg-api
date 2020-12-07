@@ -1,8 +1,8 @@
-import { RESTDataSource } from "apollo-datasource-rest";
+const { RESTDataSource } = require("apollo-datasource-rest");
 
 const TREFLE_API_KEY = process.env.TREFLE_API_KEY;
 
-export interface TrefleTypes {
+interface TrefleTypes {
   id: number;
   common_name?: string;
   scientific_name?: string;
@@ -11,7 +11,7 @@ export interface TrefleTypes {
   family: string;
 }
 
-export interface IPlant {
+interface IPlant {
   id: number;
   commonName?: string;
   scientificName: string;
@@ -25,9 +25,9 @@ interface IAnswerChoice {
   choices: IPlant[];
 }
 
-export type TQuizKey = IAnswerChoice[];
+type TQuizKey = IAnswerChoice[];
 
-class TrefleAPI extends RESTDataSource {
+module.exports = class TrefleAPI extends RESTDataSource {
   readonly nativePlantFilter: string;
 
   constructor() {
@@ -120,6 +120,4 @@ class TrefleAPI extends RESTDataSource {
       return err.message;
     }
   }
-}
-
-export default TrefleAPI;
+};

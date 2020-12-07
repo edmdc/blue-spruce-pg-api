@@ -1,6 +1,6 @@
-import { gql } from "apollo-server-lambda";
+const { gql } = require("apollo-server-lambda");
 
-export default gql`
+module.exports = gql`
   scalar EmailAddress
   scalar URL
 
