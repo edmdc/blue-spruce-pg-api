@@ -1,11 +1,11 @@
-import {
+const {
   plantCatalog,
   randomPlantCatalog,
   plantQuiz,
-} from "./trefleAPI/resolvers";
-import { EmailAddressResolver, URLResolver } from "graphql-scalars";
+} = require("./trefleAPI/resolvers");
+const { EmailAddressResolver, URLResolver } = require("graphql-scalars");
 
-const resolvers = {
+module.exports = {
   EmailAddress: EmailAddressResolver,
   URL: URLResolver,
   Query: {
@@ -14,5 +14,3 @@ const resolvers = {
     plantQuiz,
   },
 };
-
-export default resolvers;

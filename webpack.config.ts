@@ -1,5 +1,5 @@
-import nodeExternals from "webpack-node-externals";
-import serverlessWebpack from "serverless-webpack";
+const nodeExternals = require("webpack-node-externals");
+const serverlessWebpack = require("serverless-webpack");
 
 module.exports = {
   devtool: "source-map",
